@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Session, type: :model do
+RSpec.describe Play, type: :model do
   describe ".count" do
     it "responds" do
       expect(described_class).to respond_to(:count).with(0).arguments
