@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  resources :games, only: [:index]
   resources :sessions, only: [:index, :show, :create]
-  root 'sessions#index'
+  root 'games#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
