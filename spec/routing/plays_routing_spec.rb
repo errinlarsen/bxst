@@ -1,13 +1,15 @@
 require "rails_helper"
 
-RSpec.describe "routes for Sessions", type: :routing do
-  it "routes the root path to sessions#index" do
-    expect(get: "/").to route_to 'sessions#index'
+RSpec.describe "Routes for Plays", type: :routing do
+  specify "GET /games/:id/plays" do
+    expect(get: "/games/:id/plays").to be_routable
   end
 
-  it "routes to sessions" do
-    expect(get: "/sessions").to be_routable
-    expect(post: "/sessions").to be_routable
-    expect(get: "/sessions/:id").to be_routable
+  specify "POST /games/:id/plays" do
+    expect(post: "/games/:id/plays").to be_routable
+  end
+
+  specify "GET /games/:id/plays/:id" do
+    expect(get: "/games/:id/plays/:id").to be_routable
   end
 end
