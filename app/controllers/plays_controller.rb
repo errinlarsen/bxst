@@ -1,13 +1,13 @@
-class SessionsController < ApplicationController
+class PlaysController < ApplicationController
   def index
   end
 
   def show
-    @session = Session.find(params["id"])
+    @play = Plays.find(params["id"])
   end
 
   def create
-    @session = Session.create
-    redirect_to session_path(@session)
+    @play = Plays.create
+    redirect_to play_path(@play)
   end
 end
