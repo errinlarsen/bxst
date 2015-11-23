@@ -1,4 +1,6 @@
-<h1>Play session ID: </h1>
-<%= @play.id %>
-
+<h1>Play session</h1>
+<h3>ID: <%= @play.id %></h3>
 <p>Status: In progress</p>
+
+<h2>Turns</h2>
+<%= button_to "Start play session", game_play_turns_path(@game, @play) %>

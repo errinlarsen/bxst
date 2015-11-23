@@ -20,4 +20,6 @@ RSpec.describe Play, type: :model do
   end
 
   it { is_expected.to respond_to(:id).with(0).arguments }
+  it { is_expected.to belong_to(:game) }
+  it { is_expected.to have_many(:turns) }
 end

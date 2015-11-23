@@ -1,10 +1,12 @@
 class PlaysController < ApplicationController
   def index
     @game = Game.find(params["game_id"])
+    @plays = @game.plays
   end
 
   def show
-    @play = Play.find(params["id"])
+    @game = Game.find(params["game_id"])
+    @play = @game.plays.find(params["id"])
   end
 
   def create
