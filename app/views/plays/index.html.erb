@@ -1,0 +1,5 @@
+<h1>Game</h1>
+<h3>ID: <%= @game.id %></h3>
+
+<h2>Play Sessions</h2>
+<%= button_to "Play session", game_plays_path(@game.id) %>
