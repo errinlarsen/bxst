@@ -1,24 +1,22 @@
 require "rails_helper"
 
-RSpec.feature "Start a session log", type: :feature do
+RSpec.feature "Start a play session", type: :feature do
   # As a Basic/eXpert D&D Dungeon Master
-  # So I can track resources and time during play sessions
-  # I want to create an automated session log
+  # So I can track resources and time during my play sessions
+  # I want to start an automated play session log
 
-  scenario "User creates a new GameSession" do
-    # GIVEN there are no sessions
-    expect(Session.count).to be_zero
+    # GIVEN there is a Game
+  let(:game) { FactoryGirl.create(:game) }
 
-    # WHEN I visit the Sessions page
-    visit sessions_path
+  scenario "Dungeon Master starts a new Play session" do
+    # WHEN I visit the Game's Sessions page
+    # AND I click the "Play Session" button
+    visit game_plays_path(game)
+    click_button "Play session"
 
-    # AND I click the "New Session" button
-    click_button "New Session"
-
-    # THEN I see the new Session's ID
-    expect(page).to have_content("Session ID: #{Session.last.id}")
-
-    # AND I see "Session in progress"
-    expect(page).to have_content("Session in progress")
+    # THEN I see the new Play's ID
+    # AND I see "Status: In progress"
+    expect(page).to have_content("Play session ID: #{game.plays.last.id}")
+    expect(page).to have_content("Status: In progress")
   end
 end

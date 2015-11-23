@@ -61,3 +61,4 @@ end
 # support requires
 require 'support/database_cleaner'
 require 'support/factory_girl'
+require 'support/shoulda_matchers'

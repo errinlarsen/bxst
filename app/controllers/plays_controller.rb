@@ -1,13 +1,15 @@
 class PlaysController < ApplicationController
   def index
+    @game = Game.find(params["game_id"])
   end
 
   def show
-    @play = Plays.find(params["id"])
+    @play = Play.find(params["id"])
   end
 
   def create
-    @play = Plays.create
-    redirect_to play_path(@play)
+    @game = Game.find(params["game_id"])
+    @play = @game.plays.create
+    redirect_to game_play_path(@game, @play)
   end
 end
