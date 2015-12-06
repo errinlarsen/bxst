@@ -4,7 +4,7 @@ require 'game'
 
 RSpec.describe "Game::Session#alerts" do
   # Defaults...
-  Given(:turn_details) { Game::TurnDetails.new }
+  Given(:turn_details) { Game::Session::TurnDetails.new }
   Given(:generator) { Game::RandomEncounterGenerator.new }
   Given(:party) { Game::Party.new }
 
@@ -13,9 +13,9 @@ RSpec.describe "Game::Session#alerts" do
   When(:results) { subject.alerts }
 
   context "on the first turn" do
-    Given(:turn_details) { Game::TurnDetails.new(turn: 1) }
+    Given(:turn_details) { Game::Session::TurnDetails.new(turn: 1) }
     Then { results.count == 4 }
-    Then { results.include? "Game Turn #1 - hours: 0 minutes: 0" }
+    Then { results.include? turn_details.status_alert }
     Then { results.include? "Wandering Monsters: DM does not roll for wandering monsters this turn." }
 
     context "with no light sources lit" do
@@ -24,9 +24,9 @@ RSpec.describe "Game::Session#alerts" do
   end
 
   context "on the second turn" do
-    Given(:turn_details) { Game::TurnDetails.new(turn: 2) }
+    Given(:turn_details) { Game::Session::TurnDetails.new(turn: 2) }
     Then { results.count == 4 }
-    Then { results.include? "Game Turn #2 - hours: 0 minutes: 10" }
+    Then { results.include? turn_details.status_alert }
     Then { results.any? { |a| a =~ /\AWandering Monsters: DM rolls for wandering monsters: DM rolled a \d/ } }
   end
 
@@ -37,14 +37,10 @@ RSpec.describe "Game::Session#alerts" do
     Then { results_after.include? "Movement: Party is fully rested. PCs can walk up to their movement speed this turn." }
   end
 
-  context "on some subsequent turn" do
-    Given(:subsequent_turn) { rand(100) + 1 }
-    Given(:turn_details) { Game::TurnDetails.new(turn: subsequent_turn) }
-    Given(:total_time) { (10 * subsequent_turn) - 10 }
-    Given(:total_time_divided_by_60) { total_time / 60 }
-    Given(:total_time_mod_60) { total_time % 60 }
+  context "on the twenty-third turn" do
+    Given(:turn_details) { Game::Session::TurnDetails.new(turn: 23) }
     Then { results.count == 4 }
-    Then { results.include? "Game Turn ##{subsequent_turn} - hours: #{total_time_divided_by_60} minutes: #{total_time_mod_60}" }
+    Then { results.include? turn_details.status_alert}
 
     context "when the party is fully rested" do
       Given(:party) { Game::Party.new(fatigue: 0) }
