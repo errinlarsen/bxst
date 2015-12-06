@@ -13,6 +13,18 @@ module Game
       collect_alerts
     end
 
+    def light_lantern
+      @party = @party.light_lantern
+    end
+
+    def light_torch
+      @party = @party.light_torch
+    end
+
+    def take_rest
+      @party = @party.take_rest
+    end
+
     def advance(turns: 1)
       @turn_details = @turn_details.advance(turns: turns)
       @party = @party.advance(turns: turns)
