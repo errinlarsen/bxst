@@ -8,11 +8,12 @@ RSpec.describe "Game::Session#alerts" do
   Given(:generator) { Game::RandomEncounterGenerator.new }
   Given(:party) { Game::Party.new }
 
+  # What we're testing...
   Given(:subject) { Game::Session.new(turn_details: turn_details, generator: generator, party: party) }
   When(:results) { subject.alerts }
 
   context "on the first turn" do
-    Given(:turn_details) { Game::TurnDetails.new }
+    Given(:turn_details) { Game::TurnDetails.new(turn: 1) }
     Then { results.count == 4 }
     Then { results.include? "Game Turn #1 - hours: 0 minutes: 0" }
     Then { results.include? "Wandering Monsters: DM does not roll for wandering monsters this turn." }
